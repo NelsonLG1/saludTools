@@ -1,0 +1,83 @@
+<div class="-mt-5 top-0 right-0" style="float: right;">
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:x'"></mat-icon>
+    </button>
+</div>
+<h3 mat-dialog-title class="my-2 flex text-3xl">
+    Información del tipo cita&nbsp;
+    <span class="font-extrabold" *ngIf="tipoCita.nombre">
+        {{tipoCita.nombre}}
+    </span>
+</h3>
+<mat-dialog-content>
+    <div style="min-width: 35rem;">
+        <div class="justify-content-center">
+            <ng-container>
+                <div class="flex-row gap-5 overflow-hidden">
+                    <div class="flex space-x-5">
+                        <section class="bg-card grid-cols-4 flex-wrap gap-5 grid ng-star-inserted">
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">N°</p>
+                                <p class="text-2l">{{tipoCita.id}}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Nombre</p>
+                                <p class="text-2l">{{tipoCita.nombre}}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Descripción</p>
+                                <p class="text-2l" *ngIf="tipoCita.descripcion">{{tipoCita.descripcion}}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Color</p>
+                                <p class="text-2l"
+                                    [ngClass]="{'dark': tipoCita.color == 'ffffff' || tipoCita.color == 'FFFFFF'}"
+                                    [ngStyle]="{'color': tipoCita.color}">Color: {{tipoCita.color}}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Duración</p>
+                                <p class="text-2l" *ngIf="tipoCita.duracion">{{tipoCita.duracion}} minutos</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Estado</p>
+                                <p class="text-2l" *ngIf="tipoCita.estado">Activo</p>
+                                <p class="text-2l" *ngIf="!tipoCita.estado">Inactivo</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Creado por</p>
+                                <p class="text-2l" *ngIf="tipoCita.creador_id">{{tipoCita.creador_id}}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Modificado por</p>
+                                <p class="text-2l" *ngIf="tipoCita.actualizador_id">{{tipoCita.actualizador_id}}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Fecha Creación</p>
+                                <p class="text-2l" *ngIf="tipoCita.fechaCreacion">{{tipoCita.fechaCreacion |
+                                    date:'mediumDate' }}</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-2l font-extrabold">Fecha Actualización</p>
+                                <p class="text-2l" *ngIf="tipoCita.ultimaActualizacion">{{tipoCita.ultimaActualizacion |
+                                    date:'mediumDate' }}</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<!-- Divider -->
+<div class="mt-5 mb-2 border-t"></div>
+
+<div mat-dialog-actions align="center">
+    <!-- Actions -->
+    <div class="flex items-center justify-center mb-8">
+        <button mat-stroked-button type="button" mat-dialog-close>
+            <mat-icon [svgIcon]="'mat_solid:close'"></mat-icon>
+            <span class="ml-2 mr-1">Cerrar</span>
+        </button>
+    </div>
+</div>

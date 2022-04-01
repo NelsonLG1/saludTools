@@ -1,0 +1,87 @@
+<div class="-mt-5 top-0 right-0" style="float: right;">
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:x'"></mat-icon>
+    </button>
+</div>
+<h3 mat-dialog-title class="mt-2 mb-5 flex text-3xl">
+    Editar Tipo Cita&nbsp;
+    <span class="font-extrabold" *ngIf="tipoCita.nombre">
+        {{tipoCita.nombre}}
+    </span>
+</h3>
+<mat-dialog-content>
+    <div class="overflow-hidden" style="min-width: 40rem;">
+        <!-- Compose form -->
+        <form class="flex flex-row" [formGroup]="citaForm">
+            <div class="flex-col flex-auto space-y-2">
+                <div class="relative flex">
+                    <!-- Nombre -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Nombre</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:identification'" matPrefix></mat-icon>
+                        <input matInput [formControlName]="'nombre'" name="nombre" required>
+                        <mat-error>
+                            El nombre es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Duración -->
+                    <mat-form-field class="w-50 ml-5">
+                        <mat-label>Duración</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:clock'" matPrefix></mat-icon>
+
+                        <input matInput class="text-right" [placeholder]="'2'" type="number" name="duracion"
+                            [formControlName]="'duracion'" required>
+                        <span matSuffix>minutos</span>
+                        <mat-error>
+                            La duración es obligatoria
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="relative flex">
+                    <!-- Descripción -->
+                    <mat-form-field appearance="fill" class="flex-auto fuse-mat-textarea">
+                        <mat-label>Descripción</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:annotation'" matPrefix></mat-icon>
+                        <textarea matInput [formControlName]="'descripcion'" name="descripcion" matTextareaAutosize
+                            required [matAutosizeMinRows]="2"></textarea>
+                        <mat-error>
+                            La descripción es obligatoria
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Color -->
+                    <mat-form-field class="w-50 ml-5">
+                        <mat-label>Color</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'mat_solid:color_lens'" matPrefix></mat-icon>
+                        <input matInput [formControlName]="'color'" name="color" type="color" required>
+                        <mat-error>
+                            El color es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="relative flex">
+                    <mat-slide-toggle class="example-margin" [color]="'primary'" (change)="toggle($event)" [formControlName]="'estado'" name="estado">
+                        {{ textoEstado }}
+                    </mat-slide-toggle>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
+
+<!-- Divider -->
+<div class="mt-5 mb-2 border-t"></div>
+
+<div mat-dialog-actions align="center">
+
+    <!-- Actions -->
+    <div class="flex items-center justify-center mb-3">
+        <button mat-stroked-button type="button" mat-dialog-close>
+            <mat-icon [svgIcon]="'mat_solid:close'"></mat-icon>
+            <span class="ml-2 mr-1">Cancelar</span>
+        </button>
+        <button class="ml-4" mat-flat-button [color]="'primary'" [disabled]="!citaForm.valid" (click)="save()">
+            <span class="ml-2 mr-1">Guardar</span>
+            <mat-icon [svgIcon]="'mat_solid:save'"></mat-icon>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+nav.breadcrumb ol,
+nav.breadcrumb ul {
+	padding: 10px 16px;
+	list-style: none;
+}
+nav.breadcrumb ol li,
+nav.breadcrumb ul li {
+	display: inline;
+}
+nav.breadcrumb ol li a,
+nav.breadcrumb ul li a {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: -0.17px;
+	text-decoration: none;
+    @apply text-secondary ;
+}
+
+nav.breadcrumb ol li a:hover,
+nav.breadcrumb ol li:last-child a,
+nav.breadcrumb ul li a:hover,
+nav.breadcrumb ul li:last-child a {
+    color: var(--fuse-primary);
+    font-weight: bolder;
+}
+
+nav.breadcrumb ol li + li:before,
+nav.breadcrumb ul li + li:before {
+	padding: 8px 10px 8px 5px;
+	color: #ccc;
+	content: '›';
+	font-weight: 400;
+	font-size: 20px;
+}

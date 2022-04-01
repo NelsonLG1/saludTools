@@ -1,0 +1,84 @@
+<breadcrumb *ngIf="breadcrumb"></breadcrumb>
+<div class="flex flex-col w-full" [ngClass]="{'px-7':actionsDetail}">
+    <div class="pb-3 text-4xl font-extrabold tracking-tight" *ngIf="title">
+        {{title}}
+    </div>
+    <div class="flex flex-shrink-0 mt-6 sm:mt-0" *ngIf="actionsDetail">
+        <div class="flex flex-col w-full">
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo prueba...">
+            </mat-form-field>
+        </div>
+        <div *ngIf="actionsDetail.addButton">
+            <button class="cursor-pointer ml-4" style="margin-top:24px" mat-flat-button [color]="'primary'"
+                (click)="actionsDetail.actionAdd()">
+                <mat-icon [svgIcon]="'mat_outline:add_circle'"></mat-icon>
+                <span class="ml-2 mr-1">Crear</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="w-full">
+        <table mat-table [dataSource]="dataSource" matSort class="w-full">
+            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                <th mat-header-cell *matHeaderCellDef [ngSwitch]="column">
+                    <span *ngSwitchDefault>
+                        {{column}}
+                    </span>
+                </th>
+                <td mat-cell *matCellDef="let element" [ngSwitch]="column">
+                    <span *ngSwitchCase="'Estado'">
+                        <mat-icon class="cursor-pointer icon-size-6" [color]="'primary'" #tooltip="matTooltip"
+                            *ngIf="element[column]" matTooltip="Activo" [svgIcon]="'mat_solid:check_circle'">
+                        </mat-icon>
+                        <mat-icon class="cursor-pointer icon-size-6" [color]="'warn'" #tooltip="matTooltip"
+                            *ngIf="!element[column]" matTooltip="Inactivo" [svgIcon]="'mat_solid:cancel'">
+                        </mat-icon>
+                    </span>
+                    <span *ngSwitchCase="'Color'">
+                        <mat-icon class="cursor-pointer border icon-size-6" [ngClass]="{'dark': element[column] == 'ffffff' || element[column] == 'FFFFFF'}" [ngStyle]="{'color': element[column]}" #tooltip="matTooltip"
+                            *ngIf="element[column]" matTooltip="Color: {{element[column]}}" [svgIcon]="'mat_solid:color_lens'">
+                        </mat-icon>
+                    </span>
+                    <span *ngSwitchCase="'Opciones'">
+                        <ng-container *ngFor="let action of element[column];">
+                            <ng-container *ngIf="!action.column || !action.value">
+                                <mat-icon class="cursor-pointer icon-size-6" (click)="action.action(element)"
+                                    #tooltip="matTooltip" matTooltip="{{action.title}}" [svgIcon]="action.icon">
+                                </mat-icon>
+                            </ng-container>
+                            <ng-container *ngIf="action.column && action.value">
+                                <mat-icon class="cursor-pointer icon-size-6"
+                                    *ngIf="element[action.column] == action.value" (click)="action.action(element)"
+                                    #tooltip="matTooltip" matTooltip="{{action.title}}" [svgIcon]="action.icon">
+                                </mat-icon>
+                            </ng-container>
+                        </ng-container>
+                    </span>
+                    <span *ngSwitchDefault>
+                        <span *ngIf="column.includes('Valor')">
+                            {{element[column] | currency:'COP':'symbol':'3.0'}}
+                        </span>
+                        <span *ngIf="column.includes('Fecha')">
+                            {{element[column] | date:'mediumDate'}}
+                        </span>
+                        <ng-container *ngIf="!column.includes('Fecha') && !column.includes('Valor')">
+                            <span class="overflow-ellipsis">
+                                {{element[column]}}
+                            </span>
+                        </ng-container>
+                    </span>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell items-center" colspan="10">No se encontraron datos para mostrar</td>
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</div>

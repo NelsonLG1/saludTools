@@ -1,0 +1,11 @@
+<nav class="breadcrumb">
+  <ol>
+    <ng-template ngFor let-link [ngForOf]="breadcrumbs" let-index="index"> 
+      <li>
+        <a [routerLink]="link.path">{{link.text}}</a>
+      </li>
+    </ng-template>
+  </ol>
+</nav>
+
+
